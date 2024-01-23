@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Inject, OnInit, ViewEncapsulation, inject} from '@angular/core';
 import {MAT_DIALOG_DATA,  MatDialog,  MatDialogConfig,  MatDialogRef} from '@angular/material/dialog';
 import {Course} from "../model/course";
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
@@ -11,30 +11,46 @@ import * as moment from 'moment';
 })
 export class CourseDialogComponent implements OnInit {
 
-  description : string;
+  description : string = this.course.description;
   form = this.fb.group({
-    description: ['',Validators.required],
-    category:["BEGINNER", Validators.required],
-    releaseAt : [new Date(),Validators.required],
-    longDescription: ["",Validators.required]  });
+    description: [this.course.description,Validators.required],
+    category:[this.course.category, Validators.required],
+    releasedAt : [new Date(),Validators.required],
+    longDescription: [this.course.longDescription,Validators.required]  });
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) private course:Course,
+    private dialogRef : MatDialogRef<CourseDialogComponent>) {
 
 
     }
 
 
     close(){
-
+      this.dialogRef.close();
     }
 
     save(){
 
+      this.dialogRef.close(this.form.value);
     }
 
     ngOnInit() {
 
     }
 
+}
+export function openEditCourseDialog(dialog:MatDialog, course:Course){
+
+  const config = new MatDialogConfig();
+
+  config.disableClose = true;
+  config.autoFocus = true;
+
+  config.data = {
+    ...course
+  }
+  const dialogRef = dialog.open(CourseDialogComponent,config);
+
+ return  dialogRef.afterClosed();
 }
 
