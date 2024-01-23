@@ -1,0 +1,76 @@
+<div [formGroup]="form" class="course-details-form">
+
+  <mat-form-field >
+    <mat-label>Course Title</mat-label>
+    <input matInput  placeholder="Ex. Angular" formControlName="title" #title>
+
+    <mat-hint align="end">
+      {{title.value.length}}
+    </mat-hint>
+
+    <mat-error *ngIf="courseTitle.errors?.minlength">
+      A minimum length of 5 caracters is required
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-radio-group class="course-type" formControlName="courseType">
+    <mat-radio-button value="free">Free</mat-radio-button>
+    <mat-radio-button value="premium">Premium</mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field>
+    <mat-label>Select Category</mat-label>
+    <mat-select formControlName="category">
+
+      <mat-option>None</mat-option>
+
+      <mat-optgroup label="Beginners">
+
+      <mat-option value="newprogramming">New To Programming</mat-option>
+      <mat-option value="newjavascript">New To Javascript</mat-option>
+      <mat-option value="newangular">New To Angular</mat-option>
+
+      </mat-optgroup>
+
+      <mat-option value="INTERMEDIATE">Advanced</mat-option>
+      <mat-option value="ADVANCED">Advanced</mat-option>
+
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+    <input matInput formControlName="releasedAt"
+     placeholder="Release Date" [matDatepicker]="releaseAtPicker">
+     <mat-hint>MM/DD/YYYY</mat-hint>
+
+     <mat-datepicker-toggle matSuffix [for]="releaseAtPicker">
+
+    </mat-datepicker-toggle>
+
+    <mat-datepicker #releaseAtPicker [dateClass]="dateClass">
+
+    </mat-datepicker>
+  </mat-form-field>
+
+ <mat-checkbox color="primary" formControlName="downloadsAllowed"
+ [indeterminate]="true">
+  Downloads allowed?
+ </mat-checkbox>
+
+
+  <mat-form-field  >
+    <mat-label>Course Description</mat-label>
+    <textarea matInput  #longDescription formControlName="longDescription"
+    cdkTextareaAutosize [cdkAutosizeMinRows]="2"
+    [cdkAutosizeMaxRows]="5">
+
+    </textarea>
+
+  </mat-form-field>
+
+</div>
+
+
+
