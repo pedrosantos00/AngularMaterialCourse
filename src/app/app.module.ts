@@ -45,7 +45,7 @@ import {TreeDemoComponent} from './tree-demo/tree-demo.component';
 import {MatTreeModule} from '@angular/material/tree';
 import {VirtualScrollingComponent} from './virtual-scrolling/virtual-scrolling.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-
+import {LayoutModule} from '@angular/cdk/layout';
 @NgModule({
     declarations: [
         AppComponent,
@@ -92,7 +92,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
         ReactiveFormsModule,
         MatGridListModule,
         MatTreeModule,
-        ScrollingModule
+        ScrollingModule,
+        LayoutModule
     ],
     providers: [{
       provide:   CoursesService
